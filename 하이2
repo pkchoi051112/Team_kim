@@ -1,0 +1,14 @@
+matsalzip/
+│ index.html
+
+│ map.html
+│ value.html
+│ style.css
+│
+├─ data/
+│   restaurants.json
+│
+├─ scripts/
+    home.js
+    map.js
+    value.js
