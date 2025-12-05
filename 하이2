@@ -1,7 +1,83 @@
 matsalzip/
 │ index.html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>맛살집</title>
+<link rel="stylesheet" href="style.css">
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_KEY"></script>
+<script defer src="scripts/home.js"></script>
+</head>
+<body>
+<header>
+  <div id="left-nav">
+    <a href="index.html">맛살집</a>
+  </div>
+  <div id="right-nav">
+    <a href="map.html">지도</a>
+    <a href="value.html">가성비</a>
+  </div>
+</header>
+
+<h2>내 주변 맛집</h2>
+<div id="map"></div>
+<div id="storeList"></div>
+</body>
+</html>
+
 │ map.html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>지도</title>
+<link rel="stylesheet" href="style.css">
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_KEY"></script>
+<script defer src="scripts/map.js"></script>
+</head>
+<body>
+<header>
+  <div id="left-nav">
+    <a href="index.html">맛살집</a>
+  </div>
+  <div id="right-nav">
+    <a href="map.html">지도</a>
+    <a href="value.html">가성비</a>
+  </div>
+</header>
+
+<h2>ERICA 주변 맛집</h2>
+<div id="map"></div>
+<div id="storeList"></div>
+</body>
+</html>
+
 │ value.html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>가성비</title>
+<link rel="stylesheet" href="style.css">
+<script defer src="scripts/value.js"></script>
+</head>
+<body>
+<header>
+  <div id="left-nav">
+    <a href="index.html">맛살집</a>
+  </div>
+  <div id="right-nav">
+    <a href="map.html">지도</a>
+    <a href="value.html">가성비</a>
+  </div>
+</header>
+
+<h2>⭐ 가성비 맛집 목록</h2>
+<div id="storeList"></div>
+</body>
+</html>
+
 │ style.css
 body {
   font-family: Arial, sans-serif;
@@ -44,8 +120,126 @@ a {
 │
 ├─ data/
 │   restaurants.json
+[
+  {
+    "name": "정가네김밥",
+    "category": "한식",
+    "priceMin": 3000,
+    "priceMax": 7000,
+    "coords": { "lat": 37.3013, "lng": 126.8369 }
+  },
+  {
+    "name": "홍콩반점",
+    "category": "중식",
+    "priceMin": 8000,
+    "priceMax": 12000,
+    "coords": { "lat": 37.3009, "lng": 126.8393 }
+  },
+  {
+    "name": "백소정",
+    "category": "일식",
+    "priceMin": 9000,
+    "priceMax": 13000,
+    "coords": { "lat": 37.3002, "lng": 126.8387 }
+  },
+  {
+    "name": "P&P Pasta House",
+    "category": "양식",
+    "priceMin": 12000,
+    "priceMax": 18000,
+    "coords": { "lat": 37.3007, "lng": 126.8386 }
+  }
+]
+
 │
 ├─ scripts/
     home.js
+fetch("./data/restaurants.json")
+  .then(res => res.json())
+  .then(data => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(pos => {
+        const userLat = pos.coords.latitude;
+        const userLng = pos.coords.longitude;
+
+        const map = new kakao.maps.Map(document.getElementById("map"), {
+          center: new kakao.maps.LatLng(userLat, userLng),
+          level: 3
+        });
+
+        new kakao.maps.Marker({
+          map: map,
+          position: new kakao.maps.LatLng(userLat, userLng)
+        });
+
+        const storeList = document.getElementById("storeList");
+        storeList.innerHTML = "";
+
+        data.forEach(store => {
+          const star = store.priceMin <= 7000 ? " ⭐" : "";
+          const item = document.createElement("div");
+          item.className = "store-item";
+          item.innerHTML = `
+            <div>${store.name}${star}</div>
+            <div>${store.category}</div>
+            <div>${store.priceMin}~${store.priceMax}원</div>
+          `;
+          storeList.appendChild(item);
+
+          new kakao.maps.Marker({
+            map,
+            position: new kakao.maps.LatLng(store.coords.lat, store.coords.lng)
+          });
+        });
+      });
+    }
+  });
+
     map.js
+fetch("./data/restaurants.json")
+  .then(res => res.json())
+  .then(data => {
+    const map = new kakao.maps.Map(document.getElementById("map"), {
+      center: new kakao.maps.LatLng(37.3005, 126.8385),
+      level: 3
+    });
+
+    const list = document.getElementById("storeList");
+
+    data.forEach(store => {
+      const star = store.priceMin <= 7000 ? " ⭐" : "";
+      const item = document.createElement("div");
+      item.className = "store-item";
+      item.innerHTML = `
+        <div>${store.name}${star}</div>
+        <div>${store.category}</div>
+        <div>${store.priceMin}~${store.priceMax}원</div>
+      `;
+      list.appendChild(item);
+
+      new kakao.maps.Marker({
+        map,
+        position: new kakao.maps.LatLng(store.coords.lat, store.coords.lng)
+      });
+    });
+  });
+
     value.js
+fetch("./data/restaurants.json")
+  .then(res => res.json())
+  .then(data => {
+    const list = document.getElementById("storeList");
+    const valueStores = data.filter(s => s.priceMin <= 7000);
+
+    valueStores.forEach(store => {
+      const item = document.createElement("div");
+      item.className = "store-item";
+      item.innerHTML = `
+        <div>${store.name} ⭐</div>
+        <div>${store.category}</div>
+        <div>${store.priceMin}~${store.priceMax}원</div>
+      `;
+      list.appendChild(item);
+    });
+  });
+
