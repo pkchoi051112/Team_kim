@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -186,10 +185,41 @@
 <div id="home" class="page">
   <h2>내 주변 맛집</h2>
   <div class="store-item">
-    <div>예시 맛집</div>
-    <div>카테고리</div>
-    <div>가격대</div>
+    <div>행복한 짬뽕</div>
+    <div>중식</div>
+    <div>₩4,500 ~ ₩9,500</div>
   </div>
+
+  <div class="store-item">
+    <div>육회바른연어</div>
+    <div>일식</div>
+    <div>₩7,900 ~ ₩10,500</div>
+  </div>
+
+  <div class="store-item">
+    <div>핵밥</div>
+    <div>양식</div>
+    <div>₩9,900 ~ ₩13,900</div>
+  </div>
+  
+  <div class="store-item">
+    <div>홍콩반점</div>
+    <div>중식</div>
+    <div>₩8,000 ~ ₩12,000</div>
+  </div>
+
+  <div class="store-item">
+    <div>백소정</div>
+    <div>일식</div>
+    <div>₩9,000 ~ ₩13,000</div>
+  </div>
+
+  <div class="store-item">
+    <div>P&P 파스타하우스</div>
+    <div>양식</div>
+    <div>₩12,000 ~ ₩18,000</div>
+  </div>
+  
 </div>
 
 <!-- ============================ 지도 (스크롤 이미지) ============================ -->
@@ -226,6 +256,3 @@ showPage("map");
 
 </body>
 </html>
-
-위에 있는 코드는 그대로 두고 "홈" 페이지에 '예시 맛집', '카테고리', '가격대'에 아래의 데이터를 넣어서 만들어줘
-
