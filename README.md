@@ -1,43 +1,231 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>맛집 소개</title>
+  <meta charset="UTF-8">
+  <title>맛살집</title>
   <style>
-    body { font-family: sans-serif; margin: 0; background: #fafafa; }
-    header { background: #ffcb6b; padding: 20px; text-align: center; font-weight: bold; font-size: 20px; }
-    .container { padding: 20px; max-width: 900px; margin: auto; }
-    .store-card { background: white; border-radius: 10px; padding: 15px; margin-bottom: 15px; border: 1px solid #ddd; display: flex; gap: 15px; }
-    .img-box { width: 80px; height: 80px; background: #eee; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 40px;}
-    .title { font-size: 1.1rem; font-weight: bold; margin-bottom: 5px; }
-    .desc { font-size: 0.9rem; color: #444; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #dce9ff;
+      color: #333;
+    }
+
+    /* 헤더 */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      background: #5588ff;
+      border-bottom: 1px solid #3e6fe0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    #left-nav a,
+    #right-nav a {
+      text-decoration: none;
+      color: #333;
+      background: #ffffff;
+      padding: 6px 14px;
+      border-radius: 999px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    #left-nav a {
+      font-size: 22px;
+      padding: 6px 18px;
+    }
+
+    #right-nav a { margin-left: 10px; }
+
+    #right-nav a:hover,
+    #left-nav a:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .nav-icon {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 6px;
+      transform: translateY(1px);
+    }
+
+    /* ERICA 로고 */
+    .erica-logo {
+      font-size: 70px;
+      font-weight: 900;
+      display: flex;
+      gap: 6px;
+      margin: 30px auto 10px;
+      justify-content: center;
+      text-shadow: 3px 3px 0px rgba(0,0,0,0.25);
+      font-family: Arial Black, Impact, sans-serif;
+    }
+    .erica-logo span { padding: 0 6px; }
+    .erica-logo .e { color: #2c7be5; }
+    .erica-logo .r { color: #ea4335; }
+    .erica-logo .i { color: #34a853; }
+    .erica-logo .c { color: #fbbc05; }
+    .erica-logo .a { color: #d93025; }
+
+    /* 페이지 */
+    .page {
+      display: none;
+      padding: 18px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      margin-top: 8px;
+      margin-bottom: 14px;
+      font-size: 20px;
+      font-weight: 700;
+      background: #ffffff;
+      padding: 8px 14px;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+      display: inline-block;
+    }
+
+    /* 가게 카드 */
+    .store-item {
+      margin-top: 14px;
+      padding: 12px 14px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .store-item div:nth-child(1) {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      background: #e8efff;
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 8px;
+    }
+    .store-item div:nth-child(2) { font-size: 14px; color: #666; margin-bottom: 4px; }
+    .store-item div:nth-child(3) { font-size: 14px; }
+
+    /* ✅ 지도 이미지: 박스 안에서 스크롤로 보기 */
+    #mapImageContainer {
+      width: 100%;
+      height: 360px;              /* 박스 높이 고정 */
+      margin-top: 18px;
+      border-radius: 14px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      overflow: auto;             /* ✅ 스크롤 허용 */
+      background: #ffffff;
+    }
+
+    .erica-map-img {
+      width: auto;                /* ✅ 원본 크기 유지 */
+      height: auto;
+      max-width: none;
+      max-height: none;
+      display: block;
+    }
+
+    /* (선택) 스크롤바 조금 예쁘게 */
+    #mapImageContainer::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    #mapImageContainer::-webkit-scrollbar-thumb {
+      background: #b3c7ff;
+      border-radius: 10px;
+    }
+    #mapImageContainer::-webkit-scrollbar-track {
+      background: #eef2ff;
+    }
   </style>
 </head>
+
 <body>
 
-  <header>🍽️ 한양대 ERICA 근처 맛집 추천</header>
-
-  <div class="container">
-
-    <!-- 맛집 카드 1 -->
-    <div class="store-card">
-      <div class="img-box">🍜</div>
-      <div>
-        <div class="title">가게 이름 1</div>
-        <div class="desc">이 가게의 간단한 설명이 들어갑니다.</div>
-      </div>
-    </div>
-
-    <!-- 맛집 카드 2 -->
-    <div class="store-card">
-      <div class="img-box">🍖</div>
-      <div>
-        <div class="title">가게 이름 2</div>
-        <div class="desc">이 가게의 간단한 설명이 들어갑니다.</div>
-      </div>
-    </div>
-
+<header>
+  <div id="left-nav">
+    <a href="#" onclick="showPage('home'); return false;">맛살집</a>
   </div>
+
+  <div id="right-nav">
+    <a href="#" onclick="showPage('map'); return false;">
+      <span class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2V6z"></path>
+          <circle cx="12" cy="10" r="2"></circle>
+        </svg>
+      </span>
+      지도
+    </a>
+
+    <a href="#" onclick="showPage('value'); return false;">가성비</a>
+  </div>
+</header>
+
+<!-- ERICA 로고 -->
+<div class="erica-logo">
+  <span class="e">E</span>
+  <span class="r">R</span>
+  <span class="i">I</span>
+  <span class="c">C</span>
+  <span class="a">A</span>
+</div>
+
+<!-- ============================ 홈 ============================ -->
+<div id="home" class="page">
+  <h2>내 주변 맛집</h2>
+  <div class="store-item">
+    <div>예시 맛집</div>
+    <div>카테고리</div>
+    <div>가격대</div>
+  </div>
+</div>
+
+<!-- ============================ 지도 (스크롤 이미지) ============================ -->
+<div id="mapPage" class="page">
+  <h2>ERICA 근처 맛집 지도</h2>
+
+  <div id="mapImageContainer">
+    <!-- ✅ 같은 폴더의 이미지 파일 -->
+    <img src="erica_map.jpg" class="erica-map-img" alt="ERICA 지도">
+  </div>
+</div>
+
+<!-- ============================ 가성비 ============================ -->
+<div id="value" class="page">
+  <h2>⭐ 가성비 맛집</h2>
+  <div class="store-item">
+    <div>정가네김밥 ⭐</div>
+    <div>한식</div>
+    <div>3000~7000원</div>
+  </div>
+</div>
+
+<script>
+function showPage(page) {
+  document.querySelectorAll(".page").forEach(p => p.style.display = "none");
+  if (page === "home") document.getElementById("home").style.display = "block";
+  if (page === "map") document.getElementById("mapPage").style.display = "block";
+  if (page === "value") document.getElementById("value").style.display = "block";
+}
+
+/* 기본 페이지 */
+showPage("map");
+</script>
 
 </body>
 </html>
+
+위에 있는 코드는 그대로 두고 "홈" 페이지에 '예시 맛집', '카테고리', '가격대'에 아래의 데이터를 넣어서 만들어줘
+
