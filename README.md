@@ -185,7 +185,7 @@
 <div id="home" class="page">
   <h2>내 주변 맛집</h2>
   <div class="store-item">
-    <div>행복한 짬뽕</div>
+    <div>행복한 짬뽕 ⭐</div>
     <div>중식</div>
     <div>₩4,500 ~ ₩9,500</div>
   </div>
@@ -219,7 +219,24 @@
     <div>양식</div>
     <div>₩12,000 ~ ₩18,000</div>
   </div>
-  
+
+  <div class="store-item">
+    <div>찌개찌개 ⭐</div>
+    <div>한식</div>
+    <div>₩7000</div>
+  </div>
+
+  <div class="store-item">
+    <div>홍당무 ⭐</div>
+    <div>한식</div>
+    <div>₩7000 ~ ₩8000</div>
+  </div>
+
+  <div class="store-item">
+    <div>정가네김밥 ⭐</div>
+    <div>한식</div>
+    <div>₩3000 ~ ₩7000</div>
+  </div>
 </div>
 
 <!-- ============================ 지도 (스크롤 이미지) ============================ -->
@@ -238,7 +255,25 @@
   <div class="store-item">
     <div>정가네김밥 ⭐</div>
     <div>한식</div>
-    <div>3000~7000원</div>
+    <div>₩3000 ~ ₩7000</div>
+  </div>
+
+  <div class="store-item">
+    <div>행복한 짬뽕 ⭐</div>
+    <div>중식</div>
+    <div>₩4500 ~ ₩9500</div>
+  </div>
+
+  <div class="store-item">
+    <div>찌개찌개 ⭐</div>
+    <div>한식</div>
+    <div>₩7000</div>
+  </div>
+
+  <div class="store-item">
+    <div>홍당무 ⭐</div>
+    <div>한식</div>
+    <div>₩7000 ~ ₩8000</div>
   </div>
 </div>
 
